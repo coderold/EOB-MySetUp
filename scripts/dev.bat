@@ -52,3 +52,4 @@ echo dev stop       - stop docker
 goto end
 
 :end
+pause
