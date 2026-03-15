@@ -19,6 +19,7 @@ start "" "%GIT_BASH_PATH%" --cd="%REPO_PATH%"
 start "" "%VSCODE_PATH%" "%REPO_PATH%"
 start "" "%UNITY_PATH%" -projectPath "%UNITY_PROJECT%"
 start cmd /k "cd /d %BACKEND_PATH% && dotnet watch run"
+cd /d "%SCRIPT_PATH%"
 goto end
 
 :backend
@@ -30,6 +31,7 @@ goto end
 echo Starting database...
 cd /d "%REPO_PATH%"
 docker compose up -d db
+cd /d "%SCRIPT_PATH%"
 goto end
 
 :unity
@@ -41,6 +43,7 @@ goto end
 echo Stopping containers...
 cd /d "%REPO_PATH%"
 docker compose down
+cd /d "%SCRIPT_PATH%"
 goto end
 
 :shutdown
@@ -60,6 +63,7 @@ REM Close VS Code
 taskkill /F /IM Code.exe >nul 2>&1
 
 echo Environment stopped.
+cd /d "%SCRIPT_PATH%"
 goto end
 
 :help
