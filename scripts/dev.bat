@@ -6,6 +6,7 @@ if "%1"=="backend" goto backend
 if "%1"=="db" goto db
 if "%1"=="unity" goto unity
 if "%1"=="stop" goto stop
+if "%1"=="shutdown" goto shutdown
 goto help
 
 :start
@@ -42,6 +43,25 @@ cd /d "%REPO_PATH%"
 docker compose down
 goto end
 
+:shutdown
+echo Shutting down development environment...
+
+REM Stop docker containers
+cd /d "%REPO_PATH%"
+docker compose down
+
+REM Stop backend processes
+taskkill /F /IM dotnet.exe >nul 2>&1
+
+REM Close Unity
+taskkill /F /IM Unity.exe >nul 2>&1
+
+REM Close VS Code
+taskkill /F /IM Code.exe >nul 2>&1
+
+echo Environment stopped.
+goto end
+
 :help
 echo Commands:
 echo dev start      - start everything
@@ -49,6 +69,7 @@ echo dev backend    - start backend
 echo dev db         - start database
 echo dev unity      - open unity
 echo dev stop       - stop docker
+echo dev shutdown   - close all development tools
 goto end
 
 :end
