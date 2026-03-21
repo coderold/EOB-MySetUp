@@ -7,6 +7,7 @@ if "%1"=="db" goto db
 if "%1"=="unity" goto unity
 if "%1"=="stop" goto stop
 if "%1"=="code" goto code
+if "%1"=="git" goto git
 if "%1"=="shutdown" goto shutdown
 goto help
 
@@ -73,6 +74,12 @@ start "" "%VSCODE_PATH%" "%REPO_PATH%"
 cd /d "%SCRIPT_PATH%"
 goto end
 
+:git
+echo Opening Git Bash...
+start "" "%GIT_BASH_PATH%" --cd="%REPO_PATH%"
+cd /d "%SCRIPT_PATH%"
+goto end
+
 :help
 echo Commands:
 echo dev start      - start everything
@@ -80,6 +87,7 @@ echo dev backend    - start backend
 echo dev db         - start database
 echo dev unity      - open unity
 echo dev code       - open vs code
+echo dev git        - open git bash
 echo dev stop       - stop docker
 echo dev shutdown   - close all development tools
 goto end
