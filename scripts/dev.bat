@@ -3,7 +3,7 @@ call config.bat
 
 if "%1"=="start" goto start
 if "%1"=="backend" goto backend
-if "%1"=="db" goto db
+if "%1"=="docker" goto docker
 if "%1"=="unity" goto unity
 if "%1"=="stop" goto stop
 if "%1"=="code" goto code
@@ -13,25 +13,33 @@ goto help
 
 :start
 echo Starting full dev environment...
+start "" "%GIT_BASH_PATH%" --cd="%REPO_PATH%"
 start "" "%DOCKER_PATH%"
 timeout /t 10
 cd /d "%REPO_PATH%"
+docker compose up -d redis_pubsub
+timeout /t 5
+docker compose up -d redis_buffer
+timeout /t 5
 docker compose up -d db
-start "" "%GIT_BASH_PATH%" --cd="%REPO_PATH%"
 start "" "%VSCODE_PATH%" "%REPO_PATH%"
 start "" "%UNITY_PATH%" -projectPath "%UNITY_PROJECT%"
-start cmd /k "cd /d %BACKEND_PATH% && dotnet watch run"
+start cmd /k "cd /d %REPO_PATH%\backend\src\Backend\Echoes.API && dotnet watch run"
 cd /d "%SCRIPT_PATH%"
 goto end
 
 :backend
 echo Starting backend...
-start cmd /k "cd /d %BACKEND_PATH% && dotnet watch run"
+start cmd /k "cd /d %REPO_PATH%\backend\src\Backend\Echoes.API && dotnet watch run"
 goto end
 
-:db
+:docker
 echo Starting database...
 cd /d "%REPO_PATH%"
+docker compose up -d redis_pubsub
+timeout /t 5
+docker compose up -d redis_buffer
+timeout /t 5
 docker compose up -d db
 cd /d "%SCRIPT_PATH%"
 goto end
