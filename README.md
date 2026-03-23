@@ -25,10 +25,21 @@ This allows developers to start working with a single command.
 
 `dev backend` - Starts only the backend server using `dotnet watch run`.
 
-`dev db` - Starts the database container using Docker Compose.
+`dev db` - Starts the database, redis pubsub, redis buffer container using Docker Compose.
 
 `dev unity` - Opens the Unity project.
 
+`dev code` - Open Unity project folder on VS Code.
+
+`dev git` - Open Git Bash directly at the repo directory.
+
 `dev stop` - Stops all Docker containers used by the project.
 
+`dev shutdown` - Close all development tools.
+
 ---
+
+### Notes to myself
+
+Before starting the backend you need to load the env with Git Bash.
+`./setup-dev.sh`.
