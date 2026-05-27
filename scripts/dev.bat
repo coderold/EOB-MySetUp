@@ -92,7 +92,7 @@ goto end
 echo Commands:
 echo dev start      - start everything
 echo dev backend    - start backend
-echo dev db         - start database
+echo dev docker     - start database
 echo dev unity      - open unity
 echo dev code       - open vs code
 echo dev git        - open git bash
